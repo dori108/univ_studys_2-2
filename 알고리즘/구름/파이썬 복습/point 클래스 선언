@@ -2,3 +2,41 @@ point 틀래스는 2차원ㅇ 평면의 점 (또는 2차워 벡터)를 나타내
 필요한 멤버는 x좌표와 y좌표이다.
 
 선언은 다음과 같이 한다.
+class Point:
+  def __init__(self, x=0,y=0):
+    self.x=x # x좌표를 위한 멤버 self.x
+    self.y=y # y좌표를 위한 멤버 self.y
+  
+생성 함수 __init__의 매개변수로 두 좌표 값을 받는다. default 좌표 값은 0으로 정했다.
+다른 디폴트 값을 지정해도 무관함. 내가 만들고자하는 코드 대로 만들면 된다.
+
+주의!
+클래스의 모든 메소드의 첫번째 매개변수는 이 메소드를 호출하는 객체를 나타내는 self 이어야한다.
+
+class Point:
+  def __init__(self, x=0,y=0):
+    self.x=x # x좌표를 위한 멤버 self.x
+    self.y=y # y좌표를 위한 멤버 self.y
+p =Point(1,2)
+print(p)
+
+라고해보자.
+요상한 메세지가 출력된다.
+print(p)라고 명령하면 객체 p를 출력해야하는데 이 print 함수에서는 구체적으로 어떤 내용을 출력해야하는지 모른다.
+
+print 함수에게 어떤 것을 출력해야하는지 알려주는 함수는 __str__이다.
+이 함수가 따로 존재하지 않는 경우 프린트함수는 해당 객체의 정보(요상한 메세지)를 출력한다.
+
+class Point:
+  def __init__(self, x=0,y=0):
+    self.x=x # x좌표를 위한 멤버 self.x
+    self.y=y # y좌표를 위한 멤버 self.y
+
+  def __str__(self):
+    return f"({self.x},{self.y})"
+  
+p =Point(1,2)
+print(p)
+
+
+이렇게 된다면 (1,2)가 출력된다. 
