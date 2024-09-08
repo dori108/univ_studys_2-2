@@ -1,0 +1,43 @@
+point 클래스 메쏘드 - 연산자 오버로딩
+
+메소드에는 __init__, __str__,__len__등과 같이
+매직 메소드라 불리는 특졀한 메소드와 일반 메소드로 구분할 수 있다.
+
+매직 메소드는 __?__형태로 나타난다.
+매직 메소드의 몇 가지 예를 살펴본다.
+point 객체는 점을 나타내지만, 벡터로 생각할 수도 있다. 그래서 두 점을 더하는 연산을 하려면 다음과 같은 일반 메소드를 작성한다.
+def add(self,other):
+  return Point(self.x+other.x, self.y+other.y)
+
+p =Point(1,2)
+q =Point(3,4)
+r =p.add(q)
+print(r) #r=(4,6)
+
+그런데 정수, 실수 덧셈처럼 r=p+q의 형식으로  + 연산자 사용이 가능하다면 직관적이라 이해하기 쉽다.
+이에 연산자 overloading 기능을 사용할 수 이도록 했는데, 연산자에 Point 클래스의 덧셈 연산을 덧입혔다는 의미가 된다. 
+
+
+def __add__(self,other):
+  return Point(self.x+other.x, self.y+other.y)
+  
+r =p+q
+s =p.__add__(q)
+print(r,s)
+
+산술 연산자 오버로딩의 종류는 사칙연산 , %,//이 있다.
+여기에 등호를 넣는 경우도 있는데, __iadd__ 이런식으로 i를 붙여서 표현해준다.
+
+
+주의!
+곱셈 연산에서는 scalar*vector 형식으로 사용된다.
+r=p*q(x)
+r=3*q(o)
+
+반드시 왼쪽에 스칼라값을 사용하고 오른쪽에 오버로딩 기능의 사용이 가능하도록 변수를 넣는다.
+def __rmul__(self,other):
+  return Point(self.x*other, self.y*other)
+
+r=p.__rmul__(3) 의 형식으로 호출된다. 순서를 잊지 않도록 한다.
+-> r=3*p
+
