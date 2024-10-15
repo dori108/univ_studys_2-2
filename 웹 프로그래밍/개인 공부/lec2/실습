@@ -1,0 +1,32 @@
+두 가지 방법의 스타일 시트 사용 적용법
+내부:<head>안에 <style>태그를 이용해서 스타일 시트를 입력한다.
+외부:<link> 태그의 href 속성을 이용한다. 
+규모가 클 수록 후자 선호 
+
+1. 스타일시트 작성 및 실행 – 내부 스타일 방법
+
+<!DOCTYPE>
+<html>
+    <head>
+        <title> html basic</title>
+        <link rel ="stylesheet" href="lec2.practice.css">
+    </head>
+    <body>
+        <h1>hello world</h1>
+    </body>
+</html>
+
+내부 작성법 : <script>태그를 사용해 내부에 작성
+외부 작성법 : <script>태그의 src 속성을 사용해 외부에서 불러오도록 작성
+
+2. 경고창 실행
+<head>
+  <script>
+    alert('...')
+  </script>
+</head>
+...
+
+이것 역시 외부 js 파일에서 불러오기 해보기 
+정리 : 외부 스타일시트는 link 태그를 사용하고, 외부 자바스크립트는 script 태그를 사용
+
