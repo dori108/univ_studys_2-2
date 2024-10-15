@@ -1,0 +1,143 @@
+1. 선택자의 용도와 사용법
+스타일 시트 : css로 작성된 코드
+css3에서 특정 html태그를 선택하는 경우 선택자를 이용해 참조한다.
+
+예) h1 {color : red;}
+선택자, 스타일 속성, 스타일 값
+
+선택한 h1 태그의 color 스타일 속성에 red 값을 적용한 css 블록
+
+스타일 시트 : style 태그 내부에 css 블록을 이용해 작성한 코드
+<!DOCTYPE>
+<html>
+    <head>
+        <title>css3 selecter basic</title>
+        <style>
+            h1 {
+                color: antiquewhite;
+                background-color: black;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>css3 selecter basic</h1>
+    </body>
+</html>
+
+2. 선택자의 용도와 사용법
+
+전체 선택자 : * : * html 내부의 모든 태그를 선택
+태그 선택자 : 태그 : h1 html 내부의 특정 태그를 모두 선택
+아이디 선택자 : #아이디 : #id 특정 id에 속성이 있는 태그 선택, 웹 표준에 id 속성은 웹페이지 내부에서 중복되면 안된다는 규정이 있음.
+따라서 아이디 선택자는 특정 태그 하나를 선택할 때 사용
+클래스 선택자 : .클래스 : .header 특정 클래스가 있는 태그 선택
+속성 선택자 : 피피티 테이블 참조
+후손 선택자 : : header h1
+...
+이외에도 굉장히 많다
+
+
+CSS에는 가상 요소(:pseudo-element)와 가상 클래스(:pseudo-class)가 있다. 이것들을 사용해서 html 문서의 수정 없이 CSS만으로 디자인적 요소를 추가할 수 있다.
+
+가상 클래스 선택자 = 구조 선택자 
+: 기호 사용
+가상 요소 선택자 = 문자 선택자 
+:: 기호를 사용
+
+
+3. 기본 선택자
+
+<!DOCTYPE>
+<html>
+    <head>
+        <title>css3 selecter basic</title>
+        <style>
+            h1 {
+                color: antiquewhite;
+                background-color: black;
+            }
+            p {
+                color: azure;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>css3 selecter basic</h1>
+        <h2>title text</h2>
+        <p>ghghghghghghgh</p>
+    </body>
+</html>
+
+4. 태그 선택자 사용하기
+쉽표로 면결해 margin 스타일 속성과 padding 속성을 적용하자
+
+body, p, h1, h2, h3, h4,h5,h6{margin :0; padding :0;}
+이렇게 쉼표로 구분하여 선택자를 여러개 사용해도 된다.
+                              
+공간 분할을 하고 그 태그에 스타일을 적용시킬 수도 있음
+                              
+<!DOCTYPE>
+<html>
+    <head>
+        <title>css3 selecter basic</title>
+        <style>
+            #header {
+                color: antiquewhite;
+                background-color: black;
+            }
+            #aside  {
+                color:cadetblue
+            }
+            #wrap  {
+                color:darkgrey
+            }
+            #content  {
+                color: rgb(139, 108, 139);
+            }
+        </style>
+    </head>
+    <body>
+        <h1>css3 selecter basic</h1>
+        <h2>title text</h2>
+        <p>ghghghghghghgh</p>
+        <div id ="header">
+            <h1>header tag</h1>
+        </div>
+        <div id ="wrap">
+            <div id ="aside">
+                <h1>aside tag</h1>
+        </div>
+        <div id ="content">
+            <h1>content tag</h1>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<div id ="wrap">
+            <div id ="aside">
+                <h1>aside tag</h1>
+        </div>
+이 경우 wrap은 무시된다.
+가장 안쪽 태그의 영향을 크게 받는 것 같다.
+
+
+id 속성을 중복 사용하면 해당 id 속성을 표시한 모든 태그에 스타일이 적용된다.
+스타일 시트에는 id 속성이 중복되어도 문제가 없으나 js에서는 문제가 발생한다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                              
