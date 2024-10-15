@@ -111,3 +111,46 @@ img 태그는 내용을 가질 수 없는 태그, 오디오와 비디오는 내�
         
     </table>
 </body>
+
+
+
+(1)이미지 삽입 : 이미지 파일을 html 페이지와 같은 폴더에 넣고 코드를 작성
+<body>
+    <img scr="파일 이름" alt ="펭귄" width="300">
+    <img scr="Nothing" alt ="no file here" width="300">
+</body>
+
+파일 이름 자리에는 웹에 있는 이미지 경로를 넣어도 작동한다.
+이미지가 없으면 alt속성에 지정한 글이 뜬다.
+
+(2)음악 삽입 : 오디오 파일을 html 페이지와 같은 폴더에 넣고 코드를 작성
+<body>
+    <audio scr="파일 이름" control="controls"></audio>
+</body>
+컨트롤러가 웹 브라우저마다 다름 -> 다른 모습으로 보임
+
+웹 브라우저마다 지원하는 파일 확장자가 다른 경우
+source를 입력해서 해결한다. 보다 구체적으로 지정해주는 속성
+<body>
+    <audio control="controls">
+        <source src="파일이름" type="audio/mp3">
+        <source src="파일이름" type="audio/ogg">
+    </audio>
+</body>
+
+이런 식으로 오디오 안쪽에서 해결해준다.
+
+(3)비디오 삽입 : 삽입할 비디오 파일을 html페이지와 같은 폴더에 넣고 아래와 같이 코드 작성
+
+<body>
+    <video control="controls">
+        <source src="파일이름" type="video /mp3">
+        <source src="파일이름" type="video /ogg">
+    </video>
+</body>
+
+오디오랑 같지
+
+추가할 것이 있다면, 비디오를 불러오는 동안 다른 이미지를 불러오고싶은 경우 
+<video control="controls" poster="주소">
+이렇게 포함시켜서 로딩을 기다리는 동안 이미지를 보여준다.
