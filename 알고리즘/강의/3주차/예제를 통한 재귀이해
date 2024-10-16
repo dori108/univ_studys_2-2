@@ -73,3 +73,26 @@ def QuickSelect(L, k):
 A = [int(x) for x in input("n개의 수를 차례로 입력: ").split()]
 k = int(input("몇 번째로 작은 수를 원하나요? "))
 print(QuickSelect(A, k))
+
+
+
+QuickSelectdhk QuickSort 평균시간 분석
+
+def quick_select(A,K):
+	S,M,L =[],[],[]
+	p=A[0]
+	
+	for a in A:
+		if a>p:
+			L.append(a)
+		elif a<p:
+			S.append(a)
+		else:
+			M.append(a)
+	if K<=len(S):
+		return quick_select(S,K)
+	elif K>len(S)+len(M):
+		return quick_select(L,K-len(S)-len(M))
+	else:
+		return p
+
