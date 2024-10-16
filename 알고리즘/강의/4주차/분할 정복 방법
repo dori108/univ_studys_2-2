@@ -1,0 +1,66 @@
+이진 탐색 피보나치 수 하노이 탑
+
+1. 이진탐색
+오름차순으로 정렬된 n개의 숫자가 저장된 배열 A에서 어떤 값 x가 배열에 있는지 없는지 O(nlogn)비교에 알 수 있는 탐색 법
+a. 현재 탐색 범위가 A[i]...A[j]라면 가운데 값 A[(i+j)/2]와 x를 비교해서 범위를 반으로 줄이는 것
+b.한번의 비교로 범위가 반토막이 나기 때문에 logn+1번 이하의 비교로 x 존재 여부를 결정할 수 있음
+c. 주어진 크기의 문제를 크기가 반인 작은 문제로 나눠 같은 방식으로 나눠 해결하는 전형적인 분할정복 알고리즘이다.
+
+def binary_search(A, i, j, x):
+	# A[i], ..., A[j]에서 x가 있다면 해당 인덱스를, 없다면 -1을 리턴
+	if i > j: return -1 # 탐색할 범위가 존재하지 않기 때문에
+	m = (i+j)//2
+	if x == A[m]: # x를 찾았다!
+		return m
+	elif x < A[m]: # x가 오른쪽 반에는 없으니, 왼쪽 반 범위에서 탐색 계속함 (재귀호출!)
+		return binary_search(A, i, m-1, x)
+	else: # x가 왼쪽 반에는 없고, 오른쪽 반 범위에 대해 탐색 계속
+		return binary_search(A, m+1, j, x)
+	
+A = [2*i for i in range(11)] # A = [0, 2, 4, ..., 20]
+print(A)
+while True: # x = -1을 입력받을 때까지 반복
+	x = int(input("x = "))
+	if x == -1: break
+	index = binary_search(A, 0, 19, x)
+	if index == -1: print("Not found!")
+	else: print(str(x)+" is found at index "+ str(index))
+print("END")
+
+
+2. 피보나치 수
+피보나치 수열은 F(0)=0 F(1)=1 F(2)=1 F(3)=2 F(4)=3 ...로 정의되는 수열이다.
+a. 피보나치 수를 재귀함수로 그대로 구현하는 방법
+-> 간단하지만 수행시간이 지수 시간이 걸린다. 
+b. 세 변수만을 이용해서 n번째 수를 게산하는 방법
+함수연습 - 피보나치 - 루프 연습 문제에서 이미 다루었음
+a,b=1,1로 정해두고 그 다음 수 부터 더해나가는 그 코드 기억하지?
+c.배열에 0번쨰 수부터 n번째 수까지 차례대로 채우는 방법
+for 루프를 이용하면 쉽게 O(n)시간 안에 가능
+d. power(a,n) = a^n을 O(logn)시간에 계산하는 방법을 응용
+
+def fibo_rec(n):
+	if n <= 1: return n
+	return fibo_rec(n-1)+fibo_rec(n-2)
+
+def fibo_array(n):
+	F = [0, 1]
+	for i in range(2, n+1):
+		F.append(F[i-1] + F[i-2])
+	return F[n]
+
+def fibo_three(n):
+	f1 = 0
+	f2 = 1
+	for i in range(2, n+1):
+		f3 = f1 + f2
+		f1 = f2
+		f2 = f3
+	return f2
+
+n = int(input("n = "))
+print(fibo_rec(n), fibo_array(n), fibo_three(n))
+
+3. 하노이 탑 (강의에서는 대충 넘어가긴 했음)
+
+패스!
