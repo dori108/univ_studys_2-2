@@ -1,0 +1,75 @@
+팩토리얼 재귀적으로 계산하기
+def factorial(n):
+  if n==1: return n
+  else: return n*factorial(n-1)
+
+이 알고리즘은 재귀 스택 메모리를 사용한다
+리스트의 값을 거꾸로 배치하기
+a. A의 값을 반대 방향으로 재배치하는 함수 reverse(A) 재귀적으로 작성하기
+def reverse(A):
+  if len(A) ==1: return A
+  return reverse(A[1:])+A[:1]
+
+리컬젼은 누가뭐래도 수행시간 극악
+    T(n)=T(n-1)+c1,T(1)=1
+
+b. A[start ... stop-1]까지의 값을 거꾸로 배치
+def reverse(A, start, stop): # A[start] ... A[stop-1] 을 역전
+	if start < stop-1: # 2개 이상의 값이 있는 경우만 의미 있으므로
+		A[start], A[stop-1] = A[stop-1], A[start]
+		reverse(A, start+1, stop-1)
+
+수행시간은
+    T(n)=T(n-2)+c2, T(1)=1
+
+---
+selection 3가지 문제
+되도록 최소한의 수행시간을 이용해서 원하는 목표를 달성해야한다.
+주로 배열이 주어진다.
+    
+1. 최댓값 또는 최솟값 찾기
+    토너먼트 방식으로 비교하면 (n-1)번 비교로 최대값을 찾을 수 있음
+2. 최대값과 최솟값 찾기
+    토너먼트 방식으로 비교하면 (n-1)번 비교로 최대값을 찾을 수 있음
+    최댓값 토너먼트의 1라운드에서 탈락한 수 중에 최소값이 존재. -> n/2개 중에서 (n/2-1)번의 비교로 최소값을 찾을 수 있음.
+    결국 (3n/2-2)번의 비교로 최대, 최소값을 찾을 수 있음
+3. 가장 작은 값과 두번째로 작은 값을 찾기
+    토너먼트 방식으로 비교하면 (n-1)번 비교로 최솟값을 찾을 수 있음
+    두 번째로 작은 값은 토너먼트에서 가장 작은 값과 반드시 경기를 갖는다. 따라서 가장 작은 값과 경기를 한 값 중에서 두 번째로 작은 값이 있어야함. 최소값과 경기를 한 값의 개수는 logn개 이므로,
+    logn-1 번의 비교로 두 째로 작은 값을 찾을 수 있음
+    결국 총 n+logn -2번의 비교로 가장 작은 값과 두 번째로 작은 값을 찾을 수 있음
+      
+
+그럼 가장 작은 세개의 값은?
+n개의 서로 다른 수가 저장된 배열에서 가장 작은 세개의 값을 찾으려고한다. 비교횟수가 되도록 작게 하려면 어떤 방법으로해야할까?
+내 생각에는 바이너리 서치를 이용해야할 것 같아.
+      
+  
+k번째 작은 수 선택
+k번째로 작은 값 찾는 알고리즘
+배열에 저장된 값 중에서 k번째로 작은 수를 찾아서 리턴하는 함수를 만든다
+
+최악의 경우 
+      p가 최댓값 혹은 최솟값이 되어 A또는 B 중 하나가 공집합이 되면 다음 재귀호출에서 다루는 배열의 크기가 1만큼 줄어든다.
+      결국 n-1번 수행한다.
+      
+최선의 경우
+      A와 B가 거의 같은 크기로 나눠지는 경우
+      이때는 logn시간이 걸린다.
+
+
+def QuickSelect(L, k):
+    A, M, B = [], [], [] # Small, Middle, Large sets to p
+    p = L[0]  # pivot p is the first element of A
+    for a in L:
+        if a < p: A.append(a)
+        elif a == p: M.append(a)
+        else: B.append(a)
+      
+    if len(A) >= k: return QuickSelect(A, k)
+    elif len(A)+len(M) < k: return QuickSelect(B, k-len(A)-len(M))
+    else: return p
+
+A = [int(x) for x in input("n개의 수를 차례로 입력: ").split()]
+k = int(input("몇 번째로 작은 수를 원하나요? "))
+print(QuickSelect(A, k))
