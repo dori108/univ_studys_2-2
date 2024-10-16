@@ -1,0 +1,39 @@
+평균 시간 복잡성 분석
+재귀 호출을 단계(phase) 0, 1, ..., m으로 그룹화합니다. 각 단계 i에서는 최대 (3/4)ⁱn 개의 숫자가 있습니다.
+단계의 수 m은 최대 ⌊log₄ n⌋입니다.
+(X_i)를 단계 i 동안의 재귀 호출 수를 나타내는 확률 변수로 정의합니다.
+재귀 호출에서 수행되는 작업은 선형적입니다. 따라서 피벗에 대한 예상 비교 횟수는 다음과 같습니다: 
+[ E\left[\sum_{i} X_i\right] = \sum_{i} E[X_i]. ]
+(E[X_i])는 다음과 같이 구할 수 있습니다:
+[ E[X_i] \leq \sum_{k=1}^{\infty} k \cdot P(X_i = k) \leq 2. ]
+
+마지막으로, 비교 횟수에 대한 기대값의 경계는 다음과 같이 제한됩니다: 
+[ \sum_{i=0}^{m} cn\left(\frac{3}{4}\right)^{i} E[X_i] \leq 8cn = O(n). ]
+또 다른 증명
+주장: (T(n) \leq 4n) for (n \geq 1)
+
+기본 사례를 확인합니다: (n = 1)일 때 (T(1) = 1)이므로 참입니다.
+(T(i) \leq 4i) for (i < n)라고 가정합니다.
+(T(n))을 다음과 같이 유도합니다: [ T(n) = \frac{1}{n} \sum_{i=1}^{n} T(\max(i-1, n-i)) + n. ]
+
+
+퀵 정렬 알고리즘
+
+def quick_sort(A):
+    if len(A) <= 1:
+        return A
+    S, M, L = [], [], []
+    p = A[0]
+    for a in A:
+        if a < p:
+            S.append(a)
+        elif a > p:
+            L.append(a)
+        else:
+            M.append(a)
+    return quick_sort(S) + M + quick_sort(L)
+
+평균 시간 복잡성 분석
+숫자 (n)을 고려하고, 랜덤 순열을 입력으로 사용합니다.
+(X_{ij})를 정렬 과정에서 (i)와 (j)의 비교를 나타내는 확률 변수로 정의합니다.
+비교 횟수의 기대값은 다음과 같습니다: [ E[X] = \sum_{i<j} E[X_{ij}]. ]
