@@ -1,0 +1,88 @@
+정렬 알고리즘
+정렬문제는 배열 A에 저장된 n개의 값을 오름차순으로 재 배열하는 문제로, 비교횟수와 이동횟수를 가능하면 줄이는 것이 목표이다.
+
+성질 
+1. stable vs unstable
+같은 숫자들의 정렬 후 순서가 입력 배열에서의 순서와 일치하면 stable하고 그렇지 않으면 unstable하다고 정의
+
+2. in-place vs not in place
+정렬 시 O(1)정도의 메모리만 사용한다면 in-place
+
+not in place : merge, tim, heap
+in place : 그외
+stable : not in place 하면 모두 stable하다 
+예외 : insertion과 bubble은 둘 다 yes이다.
+
+기본 정렬 알고리즘
+selection insertion bubble과 같이 O(n^2)에 동작하는 느린 알고리즘
+장점: 알고리즘이 간단하고 작은 입력에 대해서는 합리적인 시간에 동작함 
+selection알고리즘만 unstable, in-place 알고리즘
+
+단점: O(n^2)에 동작하기 때문에 큰 입력에 대해서는 매우 느림
+
+selection_sort(A, n):
+    for i in range(n-1, 0, -1):
+        m = get_max_index(A, i)  # get_max_index(A, i)는 A[0], ..., A[i] 중 최대값의 배열 인덱스를 리턴하는 함수
+        A[i], A[m] = A[m], A[i]  # A[m]이 현재 최대값이므로 A[i]에 배치되어야 함.  따라서 A[i]와 A[m]을 자리바꿈(swap)
+
+insertion_sort(A, n):
+    for i in range(1, n):
+        m = find_index(A, i, A[i])     # find_index(A, i, x)는 A[m-1] <= x < A[m]을 만족하는 배열 인덱스 m를 리턴함
+        for j in range(i, m, -1):      # A[i]가 A[m]에 위치해야 하므로, A[m], ..., A[i-1] 원소는 오른쪽으로 한 칸씩 이동함.
+            A[j], A[j-1] = A[j-1], A[j]
+
+
+bubble_sort(A, n):
+    for i in range(n):
+        for j in range(n-1, i, -1):
+            if A[j-1] > A[j]:
+                A[j-1], A[j] = A[j], A[j-1]
+
+
+import random
+def quickSort(A, first, last):
+    if first >= last: return
+    left, right = first+1, last
+    pivot = A[first]
+    while left <= right:
+        while left <= last and A[left] < pivot:
+            left += 1
+        while right > first and A[right] >= pivot:
+            right -= 1
+        if left <= right: # swap A[left] and A[right]
+            A[left], A[right] = A[right], A[left]
+            left += 1
+            right -= 1
+    # place pivot at the right place
+    A[first], A[right] = A[right], A[first]
+    quickSort(A, first, right-1)
+    quickSort(A, right+1, last)
+
+n = int(input("n = "))
+random.seed()
+A = [random.randint(1, 100) for x in range(n)]
+print(A)
+quickSort(A, 0, len(A)-1)
+print(A)
+
+
+
+import random
+def quickSort2(A):
+    if len(A) <= 1: return A
+    pivot = A[0]
+    S, M, L = [], [], []
+    for x in A:
+        if x < pivot: S.append(x)
+        elif x > pivot: L.append(x)
+        else: M.append(x)
+    return quickSort2(S)+M+quickSort2(L)
+
+random.seed()
+n = int(input("n = "))
+A = [random.randint(1, 10) for x in range(n)]
+print(A)
+A=quickSort2(A)
+print(A)
+
+                
