@@ -1,0 +1,59 @@
+#include <iostream>
+using namespace std;
+
+void swap1(int a, int b) {
+    int tmp = a;
+    a = b;
+    b = tmp;
+}
+
+void swap2(int& a, int& b) {
+    int tmp = a;
+    a = b;
+    b = tmp;
+}
+
+int main() {
+	int a = 2;
+	int b = 1;
+	cout << "a: " << a << "\tb: " << b << endl;
+	
+	swap1(a, b);
+	cout << "a: " << a << "\tb: " << b << endl;
+	
+	swap2(a, b);
+	cout << "a: " << a << "\tb: " << b << endl;
+	
+	return 0;
+}
+
+포인터로 주소 가져와서 사용하기
+
+
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+// 문자열 s를 뒤집는 방법: reverse(s.begin(), s.end());
+
+void printString(string s, char a = 'f') {
+	if(a=='r'){
+		reverse(s.begin(), s.end()); // 먼저 리버스 해주고
+		cout << s << endl; // 출력은 바꾼 뒤에 해준다
+	}else{
+		cout << s << endl; // 출력을 밖에서 안해주면 else 판단을 한 번 더 해야하니까 그르치 
+	}
+	
+}
+
+int main() {
+	printString("abcdef");
+	printString("abcdef", 'f');
+	printString("abcdef", 'r');
+	
+	return 0;
+}
+
+문자열을 뒤집는 방법 이해ㅎ가ㅣ
+
