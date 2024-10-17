@@ -1,0 +1,86 @@
+#include <iostream>
+using namespace std;
+int main() {
+	
+	//초기화 방법 이해하기
+	int a[3] = {1, 2, 3};
+	int b[] = {1, 2, 3};
+	int c[5] = {1, 2, 3}; // 나머지는 0으로 자동 저장
+	
+	cout << "sizeof(a): " << sizeof(a) << endl;
+	cout << "sizeof(b): " << sizeof(b) << endl;
+	cout << "sizeof(c): " << sizeof(c) << endl;
+//배열이 다 채워지지 않으면 무슨 값이 들어갈까? 혹은 어떤 상태일까?	
+	cout << c[3] << "\t" << c[4] << endl;
+
+	return 0;
+}
+
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+	// 학생 수 입력받기
+	int num;
+	cin>>num;
+	
+	//배열 생성하고
+	string students[200];
+	int grade[200];
+
+	// 이름을 저장하고 점수 저장하기
+	for (int i = 0; i < num; i++) {
+		
+		string name;
+		cin >> name;
+		
+		int score;
+	  cin >> score;
+	    
+		students[i] = name;
+		grade[i] = score;
+	}
+	
+	for(int  i=0; i<num; i++){
+		cout << "student's name : " << students[i]<<"\t score : "<< grade[i]<< endl;
+	}
+
+	return 0;
+}
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+	int a[3][4] = {
+		{2, 3, 4, 3},
+		{5, 4, 5, 0},
+		{3, 2, 8, 1}
+	};
+	
+	int b[3][4] = {
+		{0, 4, 9, 1},
+		{2, 2, 3, 2},
+		{8, 4, 3, 4}
+	};
+
+	int c[3][4];
+	
+	for(int i=0;i<3;i++){
+		for(int j=0;j<4;j++){
+			c[i][j] =a[i][j]+b[i][j];
+		}
+	}
+	cout<<endl;
+	
+	for(int i=0;i<3;i++){
+		for(int j=0;j<4;j++){
+			cout<<c[i][j]<<"\t";
+		}
+		cout<<endl;
+	}
+	return 0;
+}
