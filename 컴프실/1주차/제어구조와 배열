@@ -1,0 +1,118 @@
+if - else
+switch
+
+#include <iostream>
+using namespace std;
+int main() {
+	cout << "Q: 사과는 영어로?" << endl;
+	cout << "1: banana		2: orange		3: apple		4: grape" << endl;
+	
+	int num;
+	cin>>num;
+	// 중요한 점 : c++은 완전히 흐름대로 코드가 진행된다. 무엇인가 만들고 싶다면 그 흐름을 완벽하게 따르면 좋은 코드를 짜낼 것
+	switch(num){ // 받은 num에 대해서 판단하겠다는 의미
+		case 1:
+			cout<<"wrong"<<endl;
+			break;
+		case 2:
+			cout<<"wrong"<<endl;
+			break;
+		case 3:
+			cout<<"right"<<endl;
+			break;
+		case 4:
+			cout<<"wrong"<<endl;
+			break;
+		default:
+			cout <<"not in the set"<<endl;
+			break;
+	}
+	return 0;
+}
+
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+	string op;
+	cout << "연산 방식: ";
+	cin >> op;
+
+	if (op != "+" && op != "-" && op != "*" && op != "/") {
+		cout << "지원하지 않는 연산입니다." << endl;
+		return 0;
+	}
+	
+	int num;
+	cout << "연산 횟수: ";
+	cin >> num;
+		
+	if (num <= 0) {
+		return 0;
+	}
+	
+	double input_num;
+	double sum = 0; 
+	
+	if (op == "+") {
+		sum = 0;
+		for (int i = 0; i < num; i++) {
+			cin >> input_num;
+			sum += input_num;
+		}
+		cout << "결과: " << sum << endl;
+	} 
+	
+	else if (op == "-") {
+		for (int i = 0; i < num; i++) {
+			cin >> input_num;
+			
+			if (i == 0) {
+				sum = input_num; 
+				
+			} else {
+				sum -= input_num;
+				
+			}
+		}
+		cout << "결과: " << sum << endl;
+	} 
+	
+	else if (op == "*") {
+		sum = 1;
+		for (int i = 0; i < num; i++) {
+			cin >> input_num;
+			sum *= input_num;
+		}
+		cout << "결과: " << sum << endl;
+	} 
+	
+	else if (op == "/") {
+		for (int i = 0; i < num; i++) {
+			cin >> input_num;
+			
+			if (i == 0) {
+				sum = input_num;
+				if(input_num == 0){
+					sum =0;
+					break;
+				}
+			} 
+			
+			else {
+				if (i!=0 && input_num == 0) {
+					cout << "0으로 나눌 수 없습니다." << endl;
+					return 0; 
+				}
+				
+				sum /= input_num;
+			}
+		}
+		cout << "결과: " << sum << endl;
+	}
+  ;
+	return 0;
+}
+
