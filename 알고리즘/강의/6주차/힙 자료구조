@@ -1,0 +1,141 @@
+힙 자료구조란?
+
+1. 힙은 1차원 배열 중에서 저장된 값이 힙 조건을 만족하는 리스트를 의미한다.
+2. 힙의 조건
+리스트를 이진트리로 해석했을 때 
+마지막 레벨을 제외한 각 레벨에는 빠짐없이 노드가 존재한다.
+마지막 레벨의 노드는 왼쪽부터 차례대로 빈틈없이 채워진다.
+
+루트노드를 제외한 모든 노드의 값은 부모 노드의 값보다 크지 않아야한다.
+또는 각 노드의 값은 자신의 자손 노드들의 값보다 같거나 커야한다.
+
+노드 A[k]의 왼쪽, 오른쪽 자식노드의 인덱스와 부모노드의 인덱스를 O(1)시간에 계산이 가능
+왼쪽 자식노드는 A[2k+1] 오른쪽 자식 노드는 A[2k+2] 부모노드는 A[(k-1)/2]
+
+힙 만들기
+
+힙 class
+class Heap:
+def__init__(self,L=[]): # 입력 리스트가 없으면 빈 리스트를 디폴트로
+  self.A=L
+  self.make_heap() # making heap
+def__str__(self.A):
+  return str(self.A)
+def_len__(self.A):
+  return len(self.A)
+
+
+힙 만들기
+리스트 A가 힙의 각 조건(각 노드는 그의 자손 노드보다 작으면 안된다.)를 만족하지 않으면 값조건을 만족하도록 리스트 값을 재배열해야한다.
+A[k]는 자신의 자손 노드들과 같거나 커야한다. 이 성질을 만족하도록 A[k]를 자식 노드와 비교하면서 더 큰 값을 갖는 자식 노드와 swap하는 과정을 더이상 할 필요가 없을 떄까지 반복한다.
+이 과정은 함수 heapify_down을 호출해 make_heap을 완성한다.
+
+heapify_down(k,n):A[k]가 밑으로 내려가면서 heap성질을 만족하는 위치로 보냄
+여기서 n은 heap의 노드 수이며 heap_sort를 위해 필요한 매개변수임
+
+그러면 마지막 노드인 A[n-1]부터 첫노드 A[0]까지 차례로 heapify_down을 호출해 make_heap을 완성한다.
+
+def heapify_down(self, k, n): 
+# n = 힙의 전체 노드수 [heap_sort를 위해 필요함]
+# A[k]가 힙 성질을 위배한다면, 밑으로 
+# 내려가면서 힙성질을 만족하는 위치를 찾는다
+while 2*k+1 < n:           # [❓] 조건문이 어떤 뜻인가? 
+	L, R = 2*k + 1, 2*k + 2	 # [❓] L, R은 어떤 값?
+	if L < n and self.A[L] > self.A[k]: 
+		m = L
+	else: 
+		m = k
+	if R < n and self.A[R] > self.A[m]: 
+		m = R # m = A[k], A[L], A[R] 중 최대값의 인덱스
+	if m != k:	# A[k]가 최대값이 아니라면 힙 성질 위배
+		self.A[k], self.A[m] = self.A[m], self.A[k]
+		k = m
+	else: break	# 왜 break할까?
+
+def make_heap(self):
+	n = len(self.A)
+	for k in range(n-1, -1, -1): # A[n-1] → ... → A[0]
+		self.heapify_down(k, n)
+
+
+힙정렬
+입력으로 주어진 리스트 A를 make_heap을 호출하여 힙으로 만든다.
+A가 힙이 되었으므로 힙의 루트노드에는 항상 전체의 최대값이 적혀있다. 
+
+루트 노드의 값(현재의 최대값)A[0]을 현재 리스트의 가장 마지막 값과 바꾼다.
+새로 루트노드에 저장된 값은 힙 성질을 만족하지 않을 수 있기 때문에 자손 노드로 내려가면서 힙의 위치를 찾아야한다.
+heapify_down 함수 호출
+
+위의 과정 2와3을 n-1번 반복하면 n-1개의 수가 정렬되어 결국 모든 n개의 수가 정렬된다. 
+
+def heap_sort(self):
+		n = len(self.A)	
+		for k in range(len(self.A)-1, -1, -1):
+			self.A[0],self.A[k] = self.A[k],self.A[0]
+			n = n - 1	# A[n-1]은 정렬되었으므로
+			self.heapify_down(0, n)
+
+
+힙 높이, 힙 만들기, 정렬 시간
+힙의 높이는 얼마나 커질 수 있지?
+힙의 높이는 루트 노드에서 가장 아래쪽 리프노드까지의 레벨 차이이다. 즉, 루트노드와 가장 아래쪽을 연결하는 에지의 개수이다. 
+이를 게산해보자 
+레벨 0의 노드 수 =1
+레벨 1의 노드 수 =2
+레벨 2의 노드 수 =4
+레벨 3의 노드 수 =8
+레벨 n의 노드 수 =2^n
+
+전체 노드 수 n는 최소 레벨 0의 노드 수 + 레벨 1의 노드 수 +..+레벨 n의 노드 수 따라서 
+n>=1+2+2^2+2^3...2^n
+양변에 로그 취하면 높이는 log(n+1)
+따라서 O(logn)
+
+make_heap의 수행시간은?
+A[k]를 자손노드 방향으로 내려가면서 값 조건을 만족하는 위치로 이동하게된다.
+이 때 A[k]가 움직이는 레벨의 개수는 당연히 h다 
+한 레벨 내려갈 때마다 싱수번의 비교와 한번의 swap을 수행하므로 O(1)버느이 수행시간을 갖는다.
+따라서 A[k]의 위치를 조정하는 일은 O(logn)시간이면 충분하고
+k=n/2..0에 대해 반복하므로 O(nlogn) 시간이면 충분하다.
+
+
+heap_sort의 수행시간
+O(nlogn) 
+make_heap의 수행시간이 전체 수행 중에 가장 크다.
+n-1번의 루트노드와 마지막 리프노드를 자리 바꿈하고 heapify하는데 필요한 시간 = (n-1)*O(logn) = O(nlogn) 
+
+
+힙의 삽입 삭제 : push,pop
+1. 힙의 삽입 연산
+힙 A의 가장 오른쪽에는 새로운 값 x를 저장하고 리 값을 힙 성질이 만족하도록 위치를 재조정해야한다.
+이 경우 x가 힙릐 리프에 위치하므로 루트노드 방향으로 올라가면서 자신의 위치를 조정하면된다.
+heapify_up이라고 부른다.
+
+def heapify_up(self, k):	# 올라가면서 A[k]를 재베치
+	while k > 0 and self.A[(k-1)//2] < self.A[k] :
+		self.A[k], self.A[(k-1)//2] = self.A[(k-1)//2], self.A[k]
+		k = (k-1)//2
+
+def insert(self, key):
+	self.A.append(key)
+	self.heapify_up(len(self.A)-1)
+
+2. 힙 삭제 연산
+힙의 루트노드에 있는 최대값을 삭제하여 값을 리턴하고 남은 힙의 힙 성질을 그대로 유지되도록하는 연산
+만약 max_heap이 아닌 min_heap인 경우엔 루트노드에 있는 최솟값을 삭제하는 연산이된다.
+
+
+def delete_max(self):
+	if len(self.A) == 0: return None
+	key = self.A[0]
+	self.A[0], self.A[len(self.A)-1] = self.A[len(self.A)-1], self.A[0]
+	self.A.pop()	# 실제로 리스트에서 delete!
+	heapify_down(0, len(self.A)) # len(self.A) = n-1
+	return key
+
+insert와 delete의 수행시간
+insert의 수행시간은 heap의 가장 아래 레벨에서 비교를 통해 루트 노드 레벨까지 올라가면서 위치를 조정하기 때문에 
+O(n)의 수행시간이 걸린다.
+
+delete역시 A[n-1]이 A[0]로 옮겨지고 루트 노드를 heapify_up 하므로 역시 O(logn)시간이 걸림
+
