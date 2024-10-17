@@ -1,0 +1,34 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+	string s = "abcdef";
+	
+	cout << "s.find(\"c\"): " << s.find("c") << endl;
+	cout << "s.find(\"g\"): " << s.find("g") << endl;
+	
+	cout << "s.front(): " << s.front() << endl;
+	cout << "s.back(): " << s.back() << endl;
+	
+	cout << &(*(s.begin())) << endl;
+	cout << *(s.begin()) << endl;
+	//cout << *(s.end()) << endl; // s의 범위를 벗어남
+	cout << *(s.end() - 1) << endl;
+	
+	while(!s.empty()) {
+		cout << s << endl;
+		s.erase(s.begin());
+		s.erase(s.end() - 1);
+	}
+	
+	return 0;
+}
+
+s.begin() 이 문자가 처음 오는 글자냐
+s.end() 이 문자가 끝에 오는 글자냐
+s.empty() 이 문자가 문자열에 있는 글자냐
+s.back() 안에 문자 참조하지 않고 맨 뒤에 있는 문자를 뱉어냄
+s.front() 안에 문자 참조하지 않고 맨 앞에 있는 문자를 뱉어냄
+
+새로 지정해주면 지정해준대로 뱉어냄
