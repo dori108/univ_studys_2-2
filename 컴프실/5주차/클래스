@@ -1,0 +1,172 @@
+#include <iostream>
+using namespace std;
+
+class Alarm {
+	
+	private:
+	int hour;
+	int minute;
+	
+	public:
+	Alarm(int hour, int minute){
+		setHour(hour);
+		setMinute(minute);
+		check();
+	}
+	
+	void setHour(int hour){
+		if(hour<0 or hour>=24){
+			this->hour =0;
+		}
+		this->hour=hour;
+	}
+	void setMinute(int minute){
+		if(minute<0 or minute>=60){
+			this->minute=0;
+		}
+		this->minute=minute;
+	}
+
+	void getHour(int hour){
+		if(hour<0 or hour>=24){
+			this->hour =0;
+		}
+		this->hour=hour;
+	}
+	void getMinute(int minute){
+		if(minute<0 or minute>=60){
+			this->minute=0;
+		}
+		this->minute=minute;
+	}
+	
+	int getHour(){
+		return hour;
+	}
+	int getMinute(){
+		return minute;
+	}
+	
+	void check(){
+		cout<<getHour()<<"시"<<getMinute()<<"분에 알람이 활성화 됩니다."<<endl;
+	}
+ 	
+	~Alarm(){
+		cout<<getHour()<<"시"<<getMinute()<<"분에 알람이 삭제됩니다."<<endl;
+	}
+ 
+};
+
+int main() {
+  Alarm* a = new Alarm(11, 0);
+	Alarm* b = new Alarm{30, 100};
+	Alarm* c = new Alarm{23, 48};
+	
+	Alarm a(11, 0);
+	Alarm b{30, 100};
+	Alarm c = {23, 48};
+	
+	return 0;
+}
+
+
+
+
+
+#include <iostream>
+using namespace std;
+
+class ComplexNumber {//복소수 클래스 형태는 a+bi
+	public:
+	int a;
+	int b;
+	
+	ComplexNumber(int A, int B) {
+		a = A;
+		b = B;
+	}
+	
+	void print() {
+		cout << a << "+" << b << "i" << endl;
+	}
+};
+
+
+ComplexNumber add1(ComplexNumber A, ComplexNumber B){
+	ComplexNumber c = ComplexNumber(A.a +B.a,A.b +B.b );
+	return	c;
+}
+void add2(ComplexNumber& A, ComplexNumber& B){
+	A.a +=B.a;
+	A.b +=B.b;
+}
+
+
+int main() {
+	ComplexNumber x(2, 3);
+	ComplexNumber y(4, 1);
+	cout << "x: ";
+	x.print();
+	cout << "y: ";
+	y.print();
+	
+	//그래서 밑에서 보면 add1과 add2가 호출되는 형식이 달라
+	ComplexNumber z = add1(x, y);
+	cout << "add1(x, y): ";
+	z.print();
+	add2(x, y);
+	cout << "add2(x, y): ";
+	x.print();
+	
+	return 0;
+}
+
+
+#include <iostream>
+#include <random>
+#include <ctime>
+using namespace std;
+
+class Point {
+	public:
+	int x;
+	int y;
+	
+	Point(int a = 0, int b = 0) {
+		x = a;
+		y = b;
+	}
+	void print() {
+		cout << "{" << x << ", " << y << "}" << endl;
+	}
+};
+
+int main() {
+	// 난수 생성을 위한 설정
+	mt19937 rng(static_cast<unsigned int>(time(0)));
+	uniform_int_distribution<int> dist(0, 10);
+	
+	Point points[10]; //클래스도 배열 가질 수 잇음 생성시 초기화 필수 혹은 디폴트 값을 만들어줘서 오류 안나도록 도움 
+	
+	for(Point& p : points) {
+		p.x = dist(rng);
+		p.y = dist(rng);
+	}
+	
+	for(Point p : points) {
+		p.print();
+	}
+	
+	Point rectangle[4] = {
+		Point(2, 0),
+		Point(6, 0),
+		Point(6, 2),
+		Point(2, 2)
+	};
+
+	for(Point p : rectangle) {
+		p.print();
+	}
+	
+	return 0;
+}
